@@ -76,7 +76,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let total_frames = duration_seconds * fps;
     let delay = (100.0 / fps as f32).round() as u16;
 
-    let file = File::create("gradient.gif")?;
+    let file = File::create(format!("gradient{}x{}_{}", width, height, duration_seconds))?;
     let mut encoder = Encoder::new(file, *width as u16, *height as u16, &[])?;
     encoder.set_repeat(Repeat::Infinite)?;
 
