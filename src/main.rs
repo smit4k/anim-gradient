@@ -9,10 +9,8 @@ use clap::Parser;
 struct Args {
     start_color: String,
     end_color: String,
-
     width: u32,
     height: u32,
-
     duration: u32,
 }
 
@@ -37,11 +35,11 @@ fn interpolate_color(color1: [u8; 3], color2: [u8; 3], ratio: f32) -> [u8; 3] {
 }
 
 fn generate_gradient_frame(
+    color1: [u8; 3],
+    color2: [u8; 3],
     width: u32,
     height: u32,
     progress: f32,
-    color1: [u8; 3],
-    color2: [u8; 3],
 ) -> RgbImage {
     let extended_width = width * 2;
     let mut img = RgbImage::new(extended_width, height);
@@ -86,7 +84,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             progress = 2.0 - progress;
         }
 
-        let img = generate_gradient_frame(*width, *height, progress, color1, color2);
+        let img = generate_gradient_frame(color1, color2, *width, *height, progress);
         let mut frame = Frame::from_rgb(*width as u16, *height as u16, &img);
         frame.delay = delay;
         encoder.write_frame(&frame)?;
