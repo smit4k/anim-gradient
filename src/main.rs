@@ -11,6 +11,7 @@ struct Args {
     width: u32,
     height: u32,
     duration: u32,
+    fps: u32,
 }
 
 // We want use a [R,G,B] for our calculations
@@ -87,7 +88,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let duration_seconds = &args.duration;
 
-    let fps = 30;
+    let fps = args.fps;
 
     let total_frames = duration_seconds * fps;
     let delay = (100.0 / fps as f32).round() as u16;
@@ -113,4 +114,3 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-
